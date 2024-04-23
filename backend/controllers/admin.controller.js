@@ -109,3 +109,39 @@ export const deleteBook = async(req,res,next) => {
         next(error)
     }
 }
+
+// Controller to fetch all books with pagination and search
+export const getAllBooks = async(req,res,next) => {
+    const {search } = req.query;
+    const page = parseInt(req.query.page) || 1; // Get page number from query parameter, default to 1 if not provided
+    const limit = parseInt(req.query.limit) || 10; // Set default limit to 10 items per page, you can adjust this as needed
+
+    try {
+        let query = {};
+
+        if (search) {
+            query.$or = [{ bookName: { $regex: search, $options: 'i' } }, { description: { $regex: search, $options: 'i' } }];
+        }
+
+        const totalBooks = await Book.countDocuments(query);
+        const totalPages = Math.ceil(totalBooks / limit);
+
+        const books = await Book.find(query)
+            .sort({ createdAt: -1 }) // Sort based on newest first
+            .skip((page - 1) * limit) // Calculate how many documents to skip based on page number and limit
+            .limit(limit); // Limit the number of documents to retrieve
+
+            
+        res.status(200).json({
+            success: true,
+            message: 'Books fetched successfully',
+            data: {
+                books,
+                totalPages,
+                currentPage: page
+            }
+        });
+    } catch (error) {
+        next(error)
+    }
+}
