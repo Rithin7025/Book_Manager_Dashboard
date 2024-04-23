@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IoMdArrowBack } from "react-icons/io";
 
 
-function BookEdit() {
+function BookEdit({handleEditComponent, bookId}) {
 const [bookName,setBookName] = useState('')
 const [bookDescription,setBookDescription] = useState('')
 const [price,setPrice] =useState('')
@@ -39,7 +39,7 @@ const handleBookUpdate = () => {
   <div>
     {/* cancel and save button */}
     <div className='flex gap-4 lg:justify-end justify-center mt-60 md:mt-40 lg:mt-72 lg:mr-6'>
-            <button onClick={()=> handleAddNewCategory('category')} className='p-3 lg:p-5 w-20 lg:w-44 h-8 items-center flex justify-center rounded-3xl bg-[#FFFFFF] hover:bg-violet-500 hover:text-white border border-[#676767] text-blue-800'> cancel </button>
+            <button onClick={()=> handleEditComponent('BookView')} className='p-3 lg:p-5 w-20 lg:w-44 h-8 items-center flex justify-center rounded-3xl bg-[#FFFFFF] hover:bg-violet-500 hover:text-white border border-[#676767] text-blue-800'> cancel </button>
             <button onClick={handleBookUpdate} className='p-3 lg:p-5 w-20 lg:w-44 h-8 items-center border-2 bg-[#662671] flex justify-center rounded-3xl hover:bg-purple-800 hover:text-black border-[#662671]  text-white'>Save</button>
     </div>
   </div>

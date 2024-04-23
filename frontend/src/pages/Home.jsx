@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState }  from 'react'
 import Header from '../components/header/Header'
 import { Sidebar } from "flowbite-react";
 import { HiInbox, HiShoppingBag, HiTable } from "react-icons/hi";
@@ -9,14 +9,20 @@ import BookAdd from '../components/Books/BookAdd';
 
 function Home() {
     const [seletectedItem, setSeletectedItem] = useState('BookView');
+    const [bookId,setBookId] = useState(null)
 
+   const  handleEditComponent = (item) => {
+  setSeletectedItem(item)
+}
 
     const renderSelectedItem = () => {
         switch(seletectedItem){
-          case 'Bookview' : 
-          return <AdminHome />
+          case 'BookView' : 
+          return <Bookview setBookId={setBookId} handleEditComponent={handleEditComponent}/>
           case 'BookEdit' :
-          return  <Productview handleAddNewProduct={handleAddNewProduct} handleEditProduct={handleEditProduct}/> 
+          return  <BookEdit handleEditComponent={handleEditComponent} bookId={bookId}/> 
+          case 'BookAdd' :
+            return <BookAdd handleEditComponent={handleEditComponent}/>
           default : 
           return null 
     
@@ -35,13 +41,12 @@ function Home() {
           <Sidebar.ItemGroup>
             <Sidebar.Item
               icon={HiInbox}
-            //   onClick={()=> handleItemClick('home')}
+              onClick={()=> handleEditComponent('home')}
               className="hover:bg-[#FFF8B7] mb-4 ml-2 bg-slate-200"
             >
               Home
             </Sidebar.Item>
         
-           
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>
@@ -53,10 +58,9 @@ function Home() {
 
 
         
-        {/* {renderSelectedItem()} */}
-       {/* <Bookview /> */}
-       {/* <BookEdit />      */}
-       {<BookAdd />}
+        {renderSelectedItem()}
+        {/* <Bookview /> */}
+     
       </div>
     </div>
     </div>

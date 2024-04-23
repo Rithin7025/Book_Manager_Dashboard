@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React,{ useState } from 'react'
 import { TbCategory } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 
-function Bookview() {
+function Bookview({handleEditComponent,setBookId}) {
     const [bookList,setBookList] = useState([]);
     
     const handleSearchChange = (e) => {
@@ -28,7 +28,7 @@ function Bookview() {
             </div>
         {/*Add new button*/}
             <div >
-            <button onClick={() =>handleAddNewCategory('categoryAdd')} className='w-16 h-7 text-xs lg:p-2 lg:w-40 lg:h-9 lg:text-sm text-white font-semibold rounded-lg hover:bg-purple-800 bg-[#662671]'> Add New</button>
+            <button onClick={() =>handleEditComponent('BookAdd')} className='w-16 h-7 text-xs lg:p-2 lg:w-40 lg:h-9 lg:text-sm text-white font-semibold rounded-lg hover:bg-purple-800 bg-[#662671]'> Add New</button>
             </div>
        </div>
 
@@ -57,33 +57,39 @@ function Bookview() {
             </tr>
         </thead>
         <tbody>
-            {/* { */}
+            {
 
-                {/* categoryList.map((category)=> ( */}
+                bookList.map((book)=> ( 
                     <tr  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td scope="row" className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                     book id
+                     book name
                 </td>
                 <td scope="row" className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                 book name
+                 book description
                 </td>
                 <td scope="row" className="flex items-center justify-center px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     book description
                 </td>
+                <td scope="row" className="flex items-center justify-center px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    date
+                </td>
+                <td scope="row" className="flex items-center justify-center px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    price
+                </td>
                 
                 <td className="hover:cursor-pointer px-2 py-4">
                 <FaRegEdit />   
-                {/* onClick={()=> handleEditCategory(category._id)} */}
+                onClick={()=> {handleEditComponent('BookEdit'); setBookId(book._id)}}
                 </td>
                 <td className= "flex justify-center px-full py-4 hover:cursor-pointer">
                     <MdDelete  />
-                    {/* onClick={()=> handleDelete(category._id)} */}
+                    onClick={()=> handleDelete(book._id)}
 
                 </td>
             </tr>
-                {/* )) */}
+                ))
 
-            {/* } */}
+            }
             
            
            
