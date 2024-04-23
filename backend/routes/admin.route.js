@@ -2,10 +2,10 @@ import express from "express";
 
 const router = express.Router();
 
-import { addBook,editBook,deleteBook } from "../controllers/admin.controller.js";
+import { addBook,editBook,deleteBook,getAllBooks } from "../controllers/admin.controller.js";
 
 //route to fetch all books
-router.get('/getAllBooks')
+router.get('/getAllBooks',getAllBooks)
 
 //Route to add new Book
 router.post('/addBook',addBook);
